@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         * {
             margin: 0;
@@ -26,13 +28,19 @@
             top: 1%;
         }
 
+        .total {
+            position: absolute;
+            top: 0;
+            left: 5%;
+        }
+
         .elems {
             height: 10px;
             width: 10%;
             background-color: rgba(0, 0, 0, 0.76);
             border: 1px solid;
-            resize: horizontal;
-            overflow: auto;
+            /* resize: horizontal; Allows To Resize Elements
+            overflow: auto; Allows To Resize Elements */
             max-width: 15%;
             min-width: 5%;
             position: absolute;
@@ -47,8 +55,8 @@
 
 <body>
     <div class="container">
-        <button onclick="oneMore()">Please One_More</button>
-        <hr style="width: 100%; position: absolute; top: 10%;">
+        <button class="bg-warning" onclick="oneMore()">Please One_More</button>
+        <div class="total">Total: <span></span></div>
         <div class="elems"></div>
         <div class="elems"></div>
         <div class="elems"></div>
@@ -63,16 +71,16 @@
         }
 
         function oneMore() {
-            document.querySelector('.container').innerHTML += "<div class='elems'></div>";
+            document.querySelector('.container').innerHTML += "<div class='elems bg-success opacity-75' style='position: absolute; top: 10%;'></div>";
             run();
         }
         function run() {
             const elems = document.querySelectorAll('.elems');
             let count = 0;
             elems.forEach(elem => {
-                elem.addEventListener('mousedown', onMouseDown);
+                elem.addEventListener('mousedown', start);
 
-                function onMouseDown(e) {
+                function start(e) {
                     let shiftX = e.clientX - elem.getBoundingClientRect().left;
                     let shiftY = e.clientY - elem.getBoundingClientRect().top;
 
@@ -93,12 +101,41 @@
                     });
                 }
 
-                elem.ondragstart = () => false; // Disable default drag behavior
+                elem.ondragstart = () => false;
                 count++;
             });
-            alert(count + " Are Total");
+            let total = document.querySelector('.total > span').innerHTML = count;
+            let bottom = getBottom(document.querySelector('.total > span'));
+            // alert(`${bottom} Is Bottom Of ${document.querySelector('.total > span')}`);
+            if (document.bottom == "") {
+                document.body.style.ackgroundColor = "red";
+                alert("no");
+            }
+            else{
+                document.body.style.ackgroundColor = "green";
+                alert(`yes: ${document.bottom}`);
+            }
         }
+
+        function getBottom(elem) {
+            // alert(`getBottom(${elem})`);
+            elem.style.fontWeight = "100", color = "green";
+            return elem.getBoundingClientRect().left;
+        }
+
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
+
+<!-- 
+Object.assign(elem.style, {
+    fontWeight: "100",
+    color: "green"
+});
+
+
+elem.style.cssText = "font-weight: 100; color: green;"; -->
