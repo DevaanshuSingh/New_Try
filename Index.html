@@ -16,11 +16,13 @@
 
         .container {
             height: 100vh;
-            width: 100vw;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-around;
             position: relative;
+            /* background-color: rgba(255, 0, 0, 0.199); */
+            border: 1px solid;
         }
 
         button {
@@ -65,6 +67,21 @@
     </div>
 
     <script>
+
+        borderTop = document.querySelector('.container').getBoundingClientRect().top;
+        borderRight = document.querySelector('.container').getBoundingClientRect().right;
+        borderBottom = document.querySelector('.container').getBoundingClientRect().bottom;
+        borderLeft = document.querySelector('.container').getBoundingClientRect().left;
+
+        elemTop = document.querySelector('.elems').getBoundingClientRect().top;
+        elemRight = document.querySelector('.container').getBoundingClientRect().right;
+        elemBottom = document.querySelector('.container').getBoundingClientRect().bottom;
+        elemLeft = document.querySelector('.container').getBoundingClientRect().left;
+
+        if (elemTop == borderTop || elemRight == borderRight || elemBottom == borderBottom || elemLeft == borderLeft){
+            elem.ondragstart = () => false;
+            alert("GRK");
+        }
 
         window.onload = function () {
             run();
@@ -111,9 +128,9 @@
                 document.body.style.ackgroundColor = "red";
                 alert("no");
             }
-            else{
+            else {
                 document.body.style.ackgroundColor = "green";
-                alert(`yes: ${document.bottom}`);
+                // alert(`yes: ${document.bottom}`);
             }
         }
 
